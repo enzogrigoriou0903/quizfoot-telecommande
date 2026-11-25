@@ -301,7 +301,8 @@ body.tvbody.mouse{cursor:default}
 .sc.turn:before{background:#fff}
 .sc.turn .ex .pk{color:#fff}
 .sc.turn .ex .tg{background:#fff;color:var(--c)}
-.turnlab{position:absolute;bottom:158px;height:58px;display:flex;align-items:center;justify-content:center;z-index:6;pointer-events:none}
+.turnlab{position:absolute;bottom:158px;height:58px;display:flex;align-items:center;justify-content:center;z-index:6;pointer-events:none;width:max-content;max-width:900px}
+.turnlab.many span{font-size:26px;padding:6px 20px}
 .turnlab span{background:var(--c);color:#fff;font-size:34px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;padding:6px 30px;border-radius:999px;box-shadow:0 0 0 4px #fff,var(--shadow);white-space:nowrap;animation:turnbounce 1s ease-in-out infinite}
 .turntop{position:absolute;left:50%;top:34px;transform:translateX(-50%);z-index:6;background:var(--c);color:#fff;font-size:40px;font-weight:900;text-transform:uppercase;padding:8px 40px;border-radius:999px;box-shadow:0 0 0 4px #fff,var(--shadow);white-space:nowrap;animation:turnglow2 1.4s ease-in-out infinite}
 @keyframes turnglow{0%,100%{box-shadow:0 0 0 6px #fff,0 0 26px 4px var(--c)}50%{box-shadow:0 0 0 6px #fff,0 0 60px 18px var(--c)}}
@@ -412,7 +413,7 @@ body.tvbody.mouse{cursor:default}
 .rcw{display:grid;grid-template-columns:minmax(0,1fr) 520px;gap:30px;width:100%;align-items:start}
 .rcw.solo{grid-template-columns:minmax(0,1fr)}
 .rct{display:grid;gap:8px}
-.rct .rch{background:var(--c,transparent);color:#fff;font-size:26px;font-weight:900;text-transform:uppercase;text-align:center;border-radius:14px;padding:10px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rct .rch{background:var(--c,transparent);color:#fff;font-size:24px;font-weight:900;text-transform:uppercase;text-align:center;border-radius:14px;padding:8px 6px;line-height:1.1;display:flex;align-items:center;justify-content:center;overflow-wrap:anywhere}
 .rct .rcg{background:var(--card);color:var(--cardInk);font-size:30px;font-weight:900;text-transform:uppercase;border-radius:12px;padding:12px 18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rct .rcc{background:var(--card);color:var(--cardInk);font-size:36px;font-weight:900;text-align:center;border-radius:12px;padding:8px;display:flex;align-items:center;justify-content:center}
 .rct .rcc .z{opacity:.25}
@@ -476,6 +477,8 @@ body.remote .hdr{position:sticky;top:0;z-index:20}
 .win .tr{font-size:220px;line-height:1;filter:drop-shadow(0 16px 30px rgba(0,0,0,.4));animation:bob 2.4s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(-16px) rotate(-3deg)}}
 .win .wl{font-size:56px;font-weight:900;letter-spacing:.3em;text-transform:uppercase;padding-left:.3em;color:var(--ink);text-shadow:var(--tsh)}
+.win .wn.long{font-size:84px;max-width:1700px}
+.win .wn.vlong{font-size:52px;max-width:1700px;line-height:1.15}
 .win .wn{font-size:150px;font-weight:900;text-transform:uppercase;line-height:1;background:var(--card);padding:24px 70px;border-radius:40px;box-shadow:0 0 0 10px var(--c),var(--shadow);color:var(--c)}
 .win .ws{font-size:48px;font-weight:900;color:var(--ink);text-shadow:var(--tsh)}
 .win .wimg{max-height:430px;max-width:1300px;border-radius:24px;border:6px solid #fff;box-shadow:var(--shadow)}
@@ -508,7 +511,7 @@ body.remote .hdr{position:sticky;top:0;z-index:20}
 .sc .ex .pk{font-size:19px;font-weight:900;text-transform:uppercase;letter-spacing:.03em;color:var(--cardInk);margin-right:6px}
 .scores.many .sc .ex .pk{font-size:16px}
 .pkt{display:grid;gap:10px;width:100%;max-width:1780px;margin:0 auto;align-content:start}
-.pkt .pkh{background:var(--c,transparent);color:#fff;font-weight:900;text-transform:uppercase;border-radius:16px;padding:12px 10px;text-align:center;font-size:.85em;line-height:1.1;box-shadow:var(--shadow);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pkt .pkh{background:var(--c,transparent);color:#fff;font-weight:900;text-transform:uppercase;border-radius:16px;padding:10px 8px;text-align:center;font-size:.8em;line-height:1.1;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;overflow-wrap:anywhere}
 .pkt .pkh:first-child{background:none;box-shadow:none}
 .pkt .pkg{background:var(--card);color:var(--cardInk);font-weight:900;text-transform:uppercase;border-radius:16px;padding:12px 18px;display:flex;align-items:center;line-height:1.1;box-shadow:var(--shadow);font-size:.85em}
 .pkt .pkc{background:rgba(255,255,255,.22);border:3px dashed rgba(255,255,255,.55);color:rgba(255,255,255,.8);border-radius:16px;font-weight:900;display:flex;align-items:center;justify-content:center;padding:10px}
@@ -691,7 +694,7 @@ const ptsTxt = n => n + ' PT' + (Math.abs(n) > 1 ? 'S' : '');
 let S = null;          // {doc, live, rev}
 let UI = {mode:'prep', sel:'teams', help:false, search:''};
 
-function newTeam(i){ const p = TEAM_PRESETS[i % TEAM_PRESETS.length]; return {id:uid(), name:p[0], color:p[1], score:0}; }
+function newTeam(i){ const p = TEAM_PRESETS[i % TEAM_PRESETS.length]; return {id:uid(), name:p[0], color:p[1], score:0, players:[]}; }
 function newGame(tplKey){
   const tp = TEMPLATES.find(t => t.key === tplKey) || TEMPLATES[0];
   const def = T[tp.type];
@@ -1751,7 +1754,7 @@ T.winner = {
     return `<div class="sl"><div class="confetti">${confetti}</div><div class="win">
       ${c.g.opts.image ? `<img class="wimg" src="${esc(src(c.g.opts.image))}">` : '<div class="tr">🏆</div>'}
       <div class="wl">${w.length > 1 ? 'Égalité' : 'Victoire'}</div>
-      <div class="wn" style="--c:${col}">${w.map(t => esc(t.name)).join(' & ')}</div>
+      <div class="wn ${w.map(t => t.name).join(' & ').length > 60 ? 'vlong' : w.map(t => t.name).join(' & ').length > 22 ? 'long' : ''}" style="--c:${col}">${w.map(t => esc(t.name)).join(' & ')}</div>
       <div class="ws">${plural(max, 'point')}</div></div></div>`;
   },
   ctrl(){ const ts = [...teams()].sort((a, b) => b.score - a.score); return `<div class="info">🥇 En tête : <b>${esc(ts[0] ? ts[0].name : '')}</b> (${ts[0] ? ts[0].score : 0} pts). En cas d’égalité, la TV affiche les équipes à égalité.</div>`; },
@@ -1782,7 +1785,8 @@ function frame(c, o){
   const chip = `${ic} ${esc(c.g.title)}${n > 1 && c.ii !== undefined ? ` <span class="n">${c.ii + 1} / ${n}</span>` : ''}${tm ? ` <span class="cteam" style="--c:${tm.color}">${o.teamLbl ? esc(o.teamLbl) + ' : ' : ''}${esc(tm.name)}</span>` : ''}`;
   const tt = o.turn ? teamById(o.turn) : null; let turnEl = '';
   if(tt){ const ts = teams(), i = ts.findIndex(t => t.id === tt.id), gap = ts.length > 4 ? 12 : 18, w = (1824 - gap * (ts.length - 1)) / ts.length;
-    turnEl = showS && !o.bar ? `<div class="turnlab" style="left:${Math.max(8, Math.min(1912 - (w + 120), 48 + i * (w + gap) - 60))}px;width:${w + 120}px;--c:${tt.color}"><span>▼ ${o.turnName ? esc(o.turnName) + ', à vous !' : 'À vous !'}</span></div>`
+    const cx = 48 + i * (w + gap) + w / 2, pos = i === 0 ? 'left:40px' : i === ts.length - 1 ? 'right:40px' : `left:${cx}px;transform:translateX(-50%)`;
+    turnEl = showS && !o.bar ? `<div class="turnlab ${ts.length > 4 ? 'many' : ''}" style="${pos};--c:${tt.color}"><span>▼ ${o.turnName ? esc(o.turnName) + ', à vous !' : 'À vous !'}</span></div>`
       : `<div class="turntop" style="--c:${tt.color}">À vous : ${esc(o.turnName || tt.name)}</div>`; }
   return `<div class="sl ${showS ? '' : 'noscores'} ${tt ? 'turnmode' : ''}"><div class="chip">${chip}</div>${timerEl(o.bigTimer)}${o.extra || ''}<div class="body ${o.cls || ''}"><div class="fit">${o.body}</div></div>${showS ? (o.bar || scoreBar(o)) : ''}${turnEl}</div>`;
 }
@@ -2328,8 +2332,8 @@ function pwReset(){ const c = ctx(cur()); if(!confirm('Recommencer cette liste ?
 function pwPlayers(gi, ii, d){ const pl = S.doc.games[gi].items[ii].players; if(d > 0) pl.push(''); else if(pl.length > 1) pl.pop(); commit(); }
 function pwPerTeam(gi){ const g = S.doc.games[gi], ts = teams(); while(g.items.length < ts.length) g.items.push(T.password.newItem(g, g.items.length)); ts.forEach((t, i) => g.items[i].team = t.id); commit(); toast('Une liste par équipe : ' + ts.length + ' listes'); }
 /* PointsDrop */
-function dropBet(tid, i, v){ const c = ctx(cur()); if(c.L.revealed) return; const n = c.it.props.length; const b = c.L.bets[tid] = (c.L.bets[tid] || Array(n).fill(0)); b[i] = Math.max(0, Math.floor(Number(v) || 0)); commit({silent:true}); const el = document.getElementById('dv_' + tid); if(el) el.innerHTML = dropStatus(c, tid); }
-function dropAllIn(tid, i){ const c = ctx(cur()); if(c.L.revealed) return; const cap = dropGL(c.g).cap[tid] || 0; const b = Array(c.it.props.length).fill(0); b[i] = cap; c.L.bets[tid] = b; commit(); }
+function dropBet(tid, i, v){ const c = ctx(cur()); if(!c.it || c.g.type !== 'drop' || c.L.revealed) return; const n = c.it.props.length; const b = c.L.bets[tid] = (c.L.bets[tid] || Array(n).fill(0)); b[i] = Math.max(0, Math.floor(Number(v) || 0)); commit({silent:true}); const el = document.getElementById('dv_' + tid); if(el) el.innerHTML = dropStatus(c, tid); }
+function dropAllIn(tid, i){ const c = ctx(cur()); if(!c.it || c.g.type !== 'drop' || c.L.revealed) return; const cap = dropGL(c.g).cap[tid] || 0; const b = Array(c.it.props.length).fill(0); b[i] = cap; c.L.bets[tid] = b; commit(); }
 function dropToggle(){ const c = ctx(cur()); c.L.shown = !c.L.shown; commit(); }
 function dropRevealBtn(){ const c = ctx(cur()); c.L.shown = true; if(dropDoReveal(c)) beep('good'); commit(); }
 function dropFinish(){ const sl = cur(), gl = dropGL(sl.g), r = Number(sl.g.opts.ratio); const ratio = isNaN(r) ? 1 : r;
